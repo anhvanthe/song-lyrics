@@ -11,24 +11,26 @@ def open_file(file_name):
     return words 
 
 def remove_common_words(words):
-    for i in words:
-        if i in common_words:
-            words.remove(i)
+    running = True 
+    while running:
+        for i in words:
+            if i in common_words:
+                words.remove(i)
+        if any(x in common_words for x in words):
+            pass
+        else:
+            running = False
     return words
 
-college_dropout = open_file("Kanye West College Dropout Full.txt")
-
-cleaned_data = remove_common_words(remove_common_words(remove_common_words(college_dropout)))
-
 def words_count(words):  
-    my_dict = {}
+    my_dict = {'x':0}
     for x in words:
         if x in my_dict:
             my_dict[x] += 1
         else:
             my_dict[x] =1
-    return my_dict
-        
+    return my_dict 
+  
 def most_common_words(my_dict):
     values = my_dict.values()
     best = max(values)
@@ -51,7 +53,19 @@ def words_often(my_dict, min_times):
             done = True
     return result 
 
-print(words_often(words_count(cleaned_data), 2))        
+def export_csv(final_data, file_name):   
+    import csv
+    with open(file_name, "w", newline = '' ) as f:
+        myWriter = csv.writer(f)
+        myWriter.writerow(['words', 'count'])
+        for i in final_data:
+            myWriter.writerow([i])
+            
+
+list_data = open_file("Kanye West College Dropout Full.txt")
+cleaned_data = remove_common_words(list_data)
+final_data = words_often(words_count(cleaned_data), 1)           
+export_csv(final_data, "kanye college dropout.csv")
         
             
             
