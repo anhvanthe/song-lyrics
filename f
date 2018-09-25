@@ -1,62 +1,0 @@
-[1mdiff --git a/Kanye analysis.py b/Kanye analysis.py[m
-[1mindex 5b9ab81..8904197 100644[m
-[1m--- a/Kanye analysis.py[m	
-[1m+++ b/Kanye analysis.py[m	
-[36m@@ -11,24 +11,26 @@[m [mdef open_file(file_name):[m
-     return words [m
- [m
- def remove_common_words(words):[m
-[31m-    for i in words:[m
-[31m-        if i in common_words:[m
-[31m-            words.remove(i)[m
-[32m+[m[32m    running = True[m[41m [m
-[32m+[m[32m    while running:[m[41m[m
-[32m+[m[32m        for i in words:[m[41m[m
-[32m+[m[32m            if i in common_words:[m[41m[m
-[32m+[m[32m                words.remove(i)[m[41m[m
-[32m+[m[32m        if any(x in common_words for x in words):[m[41m[m
-[32m+[m[32m            pass[m[41m[m
-[32m+[m[32m        else:[m[41m[m
-[32m+[m[32m            running = False[m[41m[m
-     return words[m
- [m
-[31m-college_dropout = open_file("Kanye West College Dropout Full.txt")[m
-[31m-[m
-[31m-cleaned_data = remove_common_words(remove_common_words(remove_common_words(college_dropout)))[m
-[31m-[m
- def words_count(words):  [m
-[31m-    my_dict = {}[m
-[32m+[m[32m    my_dict = {'x':0}[m[41m[m
-     for x in words:[m
-         if x in my_dict:[m
-             my_dict[x] += 1[m
-         else:[m
-             my_dict[x] =1[m
-[31m-    return my_dict[m
-[31m-        [m
-[32m+[m[32m    return my_dict[m[41m [m
-[32m+[m[41m  [m
- def most_common_words(my_dict):[m
-     values = my_dict.values()[m
-     best = max(values)[m
-[36m@@ -51,7 +53,19 @@[m [mdef words_often(my_dict, min_times):[m
-             done = True[m
-     return result [m
- [m
-[31m-print(words_often(words_count(cleaned_data), 2))        [m
-[32m+[m[32mdef export_csv(final_data, file_name):[m[41m   [m
-[32m+[m[32m    import csv[m[41m[m
-[32m+[m[32m    with open(file_name, "w", newline = '' ) as f:[m[41m[m
-[32m+[m[32m        myWriter = csv.writer(f)[m[41m[m
-[32m+[m[32m        myWriter.writerow(['words', 'count'])[m[41m[m
-[32m+[m[32m        for i in final_data:[m[41m[m
-[32m+[m[32m            myWriter.writerow([i])[m[41m[m
-[32m+[m[41m            [m
-[32m+[m[41m[m
-[32m+[m[32mlist_data = open_file("Kanye West College Dropout Full.txt")[m[41m[m
-[32m+[m[32mcleaned_data = remove_common_words(list_data)[m[41m[m
-[32m+[m[32mfinal_data = words_often(words_count(cleaned_data), 1)[m[41m           [m
-[32m+[m[32mexport_csv(final_data, "kanye college dropout.csv")[m[41m[m
-         [m
-             [m
-             [m
