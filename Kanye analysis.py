@@ -11,15 +11,10 @@ def open_file(file_name):
     return words 
 
 def remove_common_words(words):
-    running = True 
-    while running:
-        for i in words:
-            if i in common_words:
-                words.remove(i)
-        if any(x in common_words for x in words):
-            pass
-        else:
-            running = False
+    while any(x in common_words for x in words):
+        for w in words:
+            if w in common_words:
+                words.remove(w)
     return words
 
 def words_count(words):  
